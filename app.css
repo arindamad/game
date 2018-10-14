@@ -1,0 +1,22 @@
+table{
+  background: #14bdac;
+  margin: 0 auto;
+}
+
+table td{
+  width: 100px;
+  height: 100px;
+  border-right: 5px solid #0da192; 
+  border-bottom: 5px solid #0da192; 
+  cursor: pointer;
+  text-align: center;
+  font-size: 32px;
+  color: #fff;
+}
+table td:last-child{
+  border-right: none;
+  
+}
+table tr:last-child td{
+  border-bottom: none;
+}
