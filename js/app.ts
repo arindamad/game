@@ -1,7 +1,7 @@
 declare var jQuery, $;
 class Game {
-    private static imageHeight: string = "90px";
-    private static imageWidth: string = "90px";
+    private static imageHeight: string = "60px";
+    private static imageWidth: string = "60px";
     public moveCounter = 1;
 
     constructor() {
@@ -10,13 +10,13 @@ class Game {
         });
     }
     private displayZero(element: any) {
-        let imageElement = '<img style="height: ' + Game.imageHeight + '; width: ' + Game.imageWidth + ';" src="zero.jpg"/>';
+        let imageElement = '<img style="height: ' + Game.imageHeight + '; width: ' + Game.imageWidth + ';" src="images/zero.svg"/>';
         element.html(imageElement);
         element.attr("data-marked", "true");
     }
 
     private displayCross(element: any) {
-        let imageElement = '<img style="height: ' + Game.imageHeight + '; width: ' + Game.imageWidth + ';" src="cross.jpg"/>';;
+        let imageElement = '<img style="height: ' + Game.imageHeight + '; width: ' + Game.imageWidth + ';" src="images/cross.svg"/>';;
         element.html(imageElement);
         element.attr("data-marked", "true");
     }
@@ -30,14 +30,7 @@ class Game {
         }
     }
 
-    private horizontalCheck(): any {
-        let returnObject: any;
-        returnObject = {
-            isWinner: false,
-            winner: null
-        };
-        return returnObject;
-    }
+    
 
     private verticalCheck(): any {
         let returnObject: any;
@@ -59,6 +52,26 @@ class Game {
         } console.log(returnObject);
         return returnObject;
     }
+    private horizontalCheck():any{
+        let returnObject: any;
+        returnObject = {
+            isWinner: false,
+            winner: null
+        }
+        if ((typeof $("img", $("#table_game tr td").eq(0)[0]).attr('src') != "undefined") && ($("img", $("#table_game tr td").eq(0)[0]).attr('src') == $("img", $("#table_game tr td").eq(1)[0]).attr('src')) && ($("img", $("#table_game tr td").eq(0)[0]).attr('src') == $("img", $("#table_game tr td").eq(2)[0]).attr('src'))) {
+            returnObject.isWinner = true;
+            returnObject.winner = this.checkWinner($("img", $("#table_game tr td").eq(0)[0]).attr('src'));
+        }
+        if ((typeof $("img", $("#table_game tr td").eq(3)[0]).attr('src') != 'undefined') && ($("img", $("#table_game tr td").eq(3)[0]).attr('src') == $("img", $("#table_game tr td").eq(4)[0]).attr('src')) && ($("img", $("#table_game tr td").eq(3)[0]).attr('src') == $("img", $("#table_game tr td").eq(5)[0]).attr('src'))) {
+            returnObject.isWinner = true;
+            returnObject.winner = this.checkWinner($("img", $("#table_game tr td").eq(3)[0]).attr('src'));
+        }
+        if ((typeof $("img", $("#table_game tr td").eq(6)[0]).attr('src') != 'undefined') && ($("img", $("#table_game tr td").eq(2)[0]).attr('src') == $("img", $("#table_game tr td").eq(5)[0]).attr('src')) && ($("img", $("#table_game tr td").eq(2)[0]).attr('src') == $("img", $("#table_game tr td").eq(8)[0]).attr('src'))) {
+            returnObject.isWinner = true;
+            returnObject.winner = this.checkWinner($("img", $("#table_game tr td").eq(2)[0]).attr('src'));
+        } console.log(returnObject);
+        return returnObject;
+    }
 
     private diagonalCheck(): any {
         let returnObject: any;
@@ -68,6 +81,14 @@ class Game {
         };
         return returnObject;
     }
+    // private horizontalCheck(): any {
+    //     let returnObject: any;
+    //     returnObject = {
+    //         isWinner: false,
+    //         winner: null
+    //     };
+    //     return returnObject;
+    // }
 
     private check(): any {
         let verticalCheckResult = this.verticalCheck();

@@ -6,12 +6,12 @@ var Game = /** @class */ (function () {
         });
     }
     Game.prototype.displayZero = function (element) {
-        var imageElement = '<img style="height: ' + Game.imageHeight + '; width: ' + Game.imageWidth + ';" src="zero.jpg"/>';
+        var imageElement = '<img style="height: ' + Game.imageHeight + '; width: ' + Game.imageWidth + ';" src="images/zero.svg"/>';
         element.html(imageElement);
         element.attr("data-marked", "true");
     };
     Game.prototype.displayCross = function (element) {
-        var imageElement = '<img style="height: ' + Game.imageHeight + '; width: ' + Game.imageWidth + ';" src="cross.jpg"/>';
+        var imageElement = '<img style="height: ' + Game.imageHeight + '; width: ' + Game.imageWidth + ';" src="images/cross.svg"/>';
         ;
         element.html(imageElement);
         element.attr("data-marked", "true");
@@ -24,14 +24,6 @@ var Game = /** @class */ (function () {
         else {
             return "ZERO";
         }
-    };
-    Game.prototype.horizontalCheck = function () {
-        var returnObject;
-        returnObject = {
-            isWinner: false,
-            winner: null
-        };
-        return returnObject;
     };
     Game.prototype.verticalCheck = function () {
         var returnObject;
@@ -54,6 +46,27 @@ var Game = /** @class */ (function () {
         console.log(returnObject);
         return returnObject;
     };
+    Game.prototype.horizontalCheck = function () {
+        var returnObject;
+        returnObject = {
+            isWinner: false,
+            winner: null
+        };
+        if ((typeof $("img", $("#table_game tr td").eq(0)[0]).attr('src') != "undefined") && ($("img", $("#table_game tr td").eq(0)[0]).attr('src') == $("img", $("#table_game tr td").eq(1)[0]).attr('src')) && ($("img", $("#table_game tr td").eq(0)[0]).attr('src') == $("img", $("#table_game tr td").eq(2)[0]).attr('src'))) {
+            returnObject.isWinner = true;
+            returnObject.winner = this.checkWinner($("img", $("#table_game tr td").eq(0)[0]).attr('src'));
+        }
+        if ((typeof $("img", $("#table_game tr td").eq(3)[0]).attr('src') != 'undefined') && ($("img", $("#table_game tr td").eq(3)[0]).attr('src') == $("img", $("#table_game tr td").eq(4)[0]).attr('src')) && ($("img", $("#table_game tr td").eq(3)[0]).attr('src') == $("img", $("#table_game tr td").eq(5)[0]).attr('src'))) {
+            returnObject.isWinner = true;
+            returnObject.winner = this.checkWinner($("img", $("#table_game tr td").eq(3)[0]).attr('src'));
+        }
+        if ((typeof $("img", $("#table_game tr td").eq(6)[0]).attr('src') != 'undefined') && ($("img", $("#table_game tr td").eq(2)[0]).attr('src') == $("img", $("#table_game tr td").eq(5)[0]).attr('src')) && ($("img", $("#table_game tr td").eq(2)[0]).attr('src') == $("img", $("#table_game tr td").eq(8)[0]).attr('src'))) {
+            returnObject.isWinner = true;
+            returnObject.winner = this.checkWinner($("img", $("#table_game tr td").eq(2)[0]).attr('src'));
+        }
+        console.log(returnObject);
+        return returnObject;
+    };
     Game.prototype.diagonalCheck = function () {
         var returnObject;
         returnObject = {
@@ -62,6 +75,14 @@ var Game = /** @class */ (function () {
         };
         return returnObject;
     };
+    // private horizontalCheck(): any {
+    //     let returnObject: any;
+    //     returnObject = {
+    //         isWinner: false,
+    //         winner: null
+    //     };
+    //     return returnObject;
+    // }
     Game.prototype.check = function () {
         var verticalCheckResult = this.verticalCheck();
         var horizontalCheckResult = this.horizontalCheck();
@@ -108,8 +129,8 @@ var Game = /** @class */ (function () {
             }
         }
     };
-    Game.imageHeight = "90px";
-    Game.imageWidth = "90px";
+    Game.imageHeight = "60px";
+    Game.imageWidth = "60px";
     return Game;
 }());
 $(document).ready(function () {
